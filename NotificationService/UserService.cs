@@ -23,6 +23,7 @@ namespace NotificationService
         public void UpdateUserProperty(int userId, Action<User> updateAction)
         {
             User userToUpdate = userRepository.GetById(userId);
+            Console.WriteLine(userToUpdate);
             if (userToUpdate != null)
             {
                 updateAction(userToUpdate);
@@ -31,6 +32,7 @@ namespace NotificationService
             else
             {
                 Console.WriteLine("User not found.");
+                UserActionOccurred?.Invoke("Unknown User");
             }
         }
 
@@ -41,7 +43,11 @@ namespace NotificationService
             if(user != null )
                 UserActionOccurred?.Invoke($"User Removed - {user.Id}: {user.Name} ");
             else
+            {
+                Console.WriteLine("User not found.");
                 UserActionOccurred?.Invoke("Unknown User");
+
+            }
         }
     }
 }
