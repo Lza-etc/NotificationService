@@ -38,13 +38,12 @@ namespace NotificationService
 
         public void RemoveUser(int userId)
         {
-            userRepository.Remove(userId);
             var user = userRepository.GetById(userId);
-            if(user != null )
+            userRepository.Remove(userId);
+            if (user != null )
                 UserActionOccurred?.Invoke($"User Removed - {user.Id}: {user.Name} ");
             else
             {
-                Console.WriteLine("User not found.");
                 UserActionOccurred?.Invoke("Unknown User");
 
             }
